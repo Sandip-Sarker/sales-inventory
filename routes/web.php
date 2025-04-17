@@ -26,3 +26,5 @@ Route::post('/user-login', [UserController::class, 'userLogin'])->name('user.log
 //Send OTP Email
 Route::post('/send-otp-email', [UserController::class, 'sendOtpEmail'])->name('send.otp.email');
 
+// Verify OTP
+Route::post('/verify-otp', [UserController::class, 'verifyOtp'])->name('verify.otp');
