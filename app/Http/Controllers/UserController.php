@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use App\Http\Helper\JWTToken;
 
 class UserController extends Controller
 {
@@ -44,5 +45,30 @@ class UserController extends Controller
             ], 400);
         }
 
+    }
+
+
+    public function userLogin(Request $request)
+    {
+        $userCount = User::where('email', '=', $request->input('email'))
+            ->where('password', '=', $request->input('password'))
+            ->count();
+
+        if ($userCount == 1)
+        {
+            $token = JWTToken::createToken($request->input('email'));
+            return response()->json([
+                'status' => 'success',
+                'message'=> 'Login Successfully',
+                'token'  => $token
+            ], 400);
+        }
+        else
+        {
+            return response()->json([
+                'status' => 'faild',
+                'message'=> 'Unauthorize'
+            ], 400);
+        }
     }
 }

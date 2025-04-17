@@ -10,7 +10,7 @@ use Firebase\JWT\Key;
 
 class JWTToken
 {
-    function createToken($userEmail)
+    public static function createToken($userEmail)
     {
         $key = env('JWT_KEY');
         $payload=[
