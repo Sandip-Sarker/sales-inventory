@@ -22,3 +22,7 @@ Route::get('/', function () {
 Route::post('/user-registrations', [UserController::class, 'userRegistration'])->name('user.registration');
 Route::post('/user-login', [UserController::class, 'userLogin'])->name('user.login');
 
+
+//Send OTP Email
+Route::post('/send-otp-email', [UserController::class, 'sendOtpEmail'])->name('send.otp.email');
+
