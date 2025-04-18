@@ -9,9 +9,39 @@ use Illuminate\Http\Request;
 use App\Http\Helper\JWTToken;
 use Illuminate\Support\Facades\Mail;
 use function response;
+use function view;
 
 class UserController extends Controller
 {
+
+    public function LoginPage()
+    {
+        return view('frontend.auth.login');
+    }
+
+    public function RegistrationPage()
+    {
+        return view('frontend.auth.registration');
+    }
+
+
+    public function SendOtpPage()
+    {
+        return view('frontend.auth.send-otp');
+    }
+
+    public function VerifyOTPPage()
+    {
+        return view('frontend.auth.verify-otp');
+    }
+
+    public function ResetPasswordPage()
+    {
+        return view('frontend.auth.forgot-password');
+    }
+
+
+
     public function userRegistration(Request $request)
     {
         $validated = $request->validate([
