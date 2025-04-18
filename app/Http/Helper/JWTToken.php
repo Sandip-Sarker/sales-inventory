@@ -36,7 +36,7 @@ class JWTToken
         return $encode = JWT::encode($payload, $key, 'HS256');
     }
 
-    function verifyToken($token)
+    public static function verifyToken($token)
     {
         try {
             $key = env('JWT_KEY');
@@ -44,7 +44,7 @@ class JWTToken
 
             return $decode->user_email;
         }catch (Exception $e){
-            return 'Unauthorize';
+            return 'Unauthorized';
         }
     }
 }

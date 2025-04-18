@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Http\Request;
 use App\Http\Helper\JWTToken;
 use Illuminate\Support\Facades\Mail;
+use function response;
 
 class UserController extends Controller
 {
@@ -22,7 +23,6 @@ class UserController extends Controller
         ]);
 
 
-
         try {
             $user                   = new User();
             $user->first_name       = $request->input('first_name');
@@ -30,25 +30,23 @@ class UserController extends Controller
             $user->mobile           = $request->input('mobile');
             $user->email            = $request->input('email');
             $user->password         = $request->input('password');
-            $user->password         = $request->input('password');
             $user->save();
 
             return response()->json([
                 'status' => 'success',
-                'message'=> 'User Registraation Successfully'
+                'message'=> 'User Registration Successfully'
             ], 200);
         }
         catch(Exception $e)
         {
 
             return response()->json([
-                'status' => 'faild',
+                'status' => 'failed',
                 'message'=> $e->getMessage()
-            ], 400);
+            ], 401);
         }
 
     }
-
 
     public function userLogin(Request $request)
     {
@@ -63,14 +61,14 @@ class UserController extends Controller
                 'status' => 'success',
                 'message'=> 'Login Successfully',
                 'token'  => $token
-            ], 400);
+            ], 200);
         }
         else
         {
             return response()->json([
-                'status' => 'faild',
-                'message'=> 'Unauthorize'
-            ], 400);
+                'status' => 'failed',
+                'message'=> 'Unauthorized'
+            ], 401);
         }
     }
 
@@ -97,12 +95,11 @@ class UserController extends Controller
         else
         {
             return response()->json([
-                'status' => 'faild',
-                'message'=> 'Unauthorize'
-            ], 400);
+                'status' => 'failed',
+                'message'=> 'Unauthorized'
+            ], 401);
         }
     }
-
 
     public function verifyOtp(Request $request)
     {
@@ -124,15 +121,39 @@ class UserController extends Controller
                 'status' => 'success',
                 'message'=> 'OTP Verification Successfully',
                 'token'  => $token
-            ], 400);
+            ], 200);
         }
         else
         {
             return response()->json([
-                'status' => 'faild',
-                'message'=> 'Unauthorize'
-            ], 400);
+                'status' => 'failed',
+                'message'=> 'Unauthorized'
+            ], 401);
         }
     }
 
+    public function resetPassword(Request $request)
+    {
+        try {
+            $email      = $request->header('email');
+            $password   = $request->input('password');
+
+            User::where('email', '=', $email)
+                ->update([
+                    'password' => $password
+                ]);
+
+            return response()->json([
+                'status' => 'success',
+                'message'=> 'Password Reset Successfully'
+            ], 200);
+        }
+        catch (Exception $e)
+        {
+            return response()->json([
+                'status' => 'failed',
+                'message'=> 'Something Went Wrong'
+            ], 400);
+        }
+    }
 }
