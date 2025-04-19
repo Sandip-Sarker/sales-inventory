@@ -3,6 +3,7 @@
 use App\Http\Middleware\TokenVerificationMiddleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\backend\DashboardController;
 
 
 Route::get('/', function () {
@@ -24,4 +25,4 @@ Route::get('/verifyOtp',[UserController::class,'VerifyOTPPage'])->name('verify')
 Route::get('/forgot-password',[UserController::class,'ResetPasswordPage'])->name('forgot.password');
 
 // Dashboard
-Route::get('/dashboard',[DashboardController::class,'DashboardPage'])->name('dashboard')->middleware([TokenVerificationMiddleware::class]);
+Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
