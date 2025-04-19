@@ -70,7 +70,7 @@ class UserController extends Controller
             return response()->json([
                 'status' => 'failed',
                 'message'=> $e->getMessage()
-            ], 401);
+            ], 201);
         }
 
     }

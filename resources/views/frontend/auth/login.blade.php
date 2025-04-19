@@ -51,7 +51,11 @@
                 hideLoader();
 
                 if(res.status === 200 && res.data.status === 'success'){
-                    window.location.href='/dashboard';
+                    successToast(res.data.message)
+                    setTimeout(function () {
+                        window.location.href='/dashboard';
+                    }, 2000)
+
                 }else{
                     errorToast("Unauthorized");
                 }
