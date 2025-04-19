@@ -17,6 +17,11 @@ Route::post('/send-otp-email', [UserController::class, 'sendOtpEmail'])->name('s
 Route::post('/verify-otp', [UserController::class, 'verifyOtp'])->name('verify.otp');
 Route::post('/password-reset', [UserController::class, 'resetPassword'])->name('password.reset')->middleware([TokenVerificationMiddleware::class]);
 
+
+Route::get('/profile-details', [UserController::class, 'userProfileDataGet'])->name('user.profile.detail')->middleware([TokenVerificationMiddleware::class]);
+Route::post('/user-profile/update', [UserController::class, 'userProfileUpdate'])->name('user.profile.update')->middleware([TokenVerificationMiddleware::class]);
+
+
 // user logout
 Route::get('/logout',[UserController::class,'userLogout'])->name('logout');
 
@@ -30,3 +35,6 @@ Route::get('/forgot-password',[UserController::class,'ResetPasswordPage'])->name
 
 // Dashboard
 Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard')->middleware([TokenVerificationMiddleware::class]);
+
+// Profile
+Route::get('/userProfile',[DashboardController::class,'userProfile'])->name('user.profile')->middleware([TokenVerificationMiddleware::class]);

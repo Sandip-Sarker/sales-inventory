@@ -189,4 +189,46 @@ class UserController extends Controller
         return redirect('/login')->cookie('token', '', -1);
     }
 
+    public function userProfileDataGet(Request $request)
+    {
+        $email  = $request->header('email');
+        $user   = User::where('email', '=', $email)->first();
+
+        return response()->json([
+           'status'     => 'success',
+            'message'   => 'Request Successfully',
+            'data'      => $user
+        ], 200);
+    }
+
+    public function userProfileUpdate(Request $request)
+    {
+        try {
+            $email      = $request->header('email');
+            $first_name = $request->input('first_name');
+            $last_name  = $request->input('last_name');
+            $mobile     = $request->input('mobile');
+            $password   = $request->input('password');
+
+            $user       = User::where('email', '=', $email)->update([
+                'first_name'    => $first_name,
+                'last_name'     => $last_name,
+                'mobile'        => $mobile,
+                'password'      => $password,
+            ]);
+
+            return response()->json([
+                'status'        => 'success',
+                'message'       => 'Request Successfully',
+                'data'          => $user
+            ], 200);
+        }catch (Exception $e){
+            return response()->json([
+                'status'     => 'fail',
+                'message'    => 'Something Went Wrong',
+            ]);
+        }
+
+    }
+
 }

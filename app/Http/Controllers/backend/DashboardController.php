@@ -12,4 +12,9 @@ class DashboardController extends Controller
         return view('backend.home.dashboard');
     }
 
+    public function userProfile()
+    {
+        return view('backend.home.profile');
+    }
+
 }
