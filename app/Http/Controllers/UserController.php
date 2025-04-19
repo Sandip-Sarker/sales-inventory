@@ -24,7 +24,6 @@ class UserController extends Controller
         return view('frontend.auth.registration');
     }
 
-
     public function SendOtpPage()
     {
         return view('frontend.auth.send-otp');
@@ -40,17 +39,15 @@ class UserController extends Controller
         return view('frontend.auth.forgot-password');
     }
 
-
-
     public function userRegistration(Request $request)
     {
-        $validated = $request->validate([
-            'first_name' => 'required',
-            'last_name'  => 'required',
-            'mobile'     => ['required', 'regex:/^(?:\+?88)?01[3-9]\d{8}$/'], // Supports 013-019 and optional +88
-            'email'      => ['required', 'regex:/^\S+@\S+\.\S+$/'], // Basic email format
-            'password'   => ['required', 'regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/'], //Minimum eight characters, at least one letter, one number and one special character:
-        ]);
+//        $validated = $request->validate([
+//            'first_name' => 'required',
+//            'last_name'  => 'required',
+//            'mobile'     => ['required', 'regex:/^(?:\+?88)?01[3-9]\d{8}$/'], // Supports 013-019 and optional +88
+//            'email'      => ['required', 'regex:/^\S+@\S+\.\S+$/'], // Basic email format
+//            'password'   => ['required', 'regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/'], //Minimum eight characters, at least one letter, one number and one special character:
+//        ]);
 
 
         try {
@@ -89,16 +86,15 @@ class UserController extends Controller
             $token = JWTToken::createToken($request->input('email'));
             return response()->json([
                 'status' => 'success',
-                'message'=> 'Login Successfully',
-                'token'  => $token
-            ], 200);
+                'message'=> 'User Login Successfully',
+            ], 200)->cookie('token', $token, 60*24*30);
         }
         else
         {
             return response()->json([
                 'status' => 'failed',
                 'message'=> 'Unauthorized'
-            ], 401);
+            ], 201);
         }
     }
 
