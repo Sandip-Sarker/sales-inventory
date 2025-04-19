@@ -45,9 +45,9 @@
     </div>
 
     <script>
-
+        //Data get function calling
         getProfile();
-
+        //Data get function
         async function getProfile()
         {
             showLoader();
@@ -66,40 +66,36 @@
             }
         }
 
+        //Data Update
         async function onUpdate() {
             let first_name      =document.getElementById('first_name').value;
             let last_name       =document.getElementById('last_name').value;
             let mobile          =document.getElementById('mobile').value;
-            let email           =document.getElementById('email').value;
             let password        =document.getElementById('password').value;
 
             if(first_name.length === 0)
             {
-                errorToast("First Name is requierd")
+                errorToast("First Name is required")
             }else if(last_name.length === 0){
-                errorToast("Last Name is requierd")
+                errorToast("Last Name is required")
             }else if(mobile.length === 0){
-                errorToast("Phone Number is requierd")
-            }else if(email.length === 0){
-                errorToast("Email is requierd")
+                errorToast("Phone Number is required")
             }else if(password.length === 0){
-                errorToast("Password is requierd")
+                errorToast("Password is required")
             }else{
                 showLoader();
-                let res = await axios.post('/user-registrations', {
+                let res = await axios.post('/profile-update', {
                     first_name:first_name,
                     last_name:last_name,
                     mobile:mobile,
-                    email:email,
                     password:password
                 });
                 hideLoader();
 
                 if(res.status === 200 && res.data.status === 'success'){
                     successToast(res.data.message)
-                    setTimeout(function () {
-                        window.location.href='/login';
-                    }, 2000)
+
+                    await getProfile();
 
                 }else{
                     errorToast(res.data.message);

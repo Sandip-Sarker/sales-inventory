@@ -19,7 +19,7 @@ Route::post('/password-reset', [UserController::class, 'resetPassword'])->name('
 
 
 Route::get('/profile-details', [UserController::class, 'userProfileDataGet'])->name('user.profile.detail')->middleware([TokenVerificationMiddleware::class]);
-Route::post('/user-profile/update', [UserController::class, 'userProfileUpdate'])->name('user.profile.update')->middleware([TokenVerificationMiddleware::class]);
+Route::post('/profile-update', [UserController::class, 'userProfileUpdate'])->name('user.profile.update')->middleware([TokenVerificationMiddleware::class]);
 
 
 // user logout

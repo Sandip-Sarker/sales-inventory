@@ -194,6 +194,7 @@ class UserController extends Controller
         $email  = $request->header('email');
         $user   = User::where('email', '=', $email)->first();
 
+
         return response()->json([
            'status'     => 'success',
             'message'   => 'Request Successfully',
