@@ -70,7 +70,7 @@ class UserController extends Controller
             return response()->json([
                 'status' => 'failed',
                 'message'=> $e->getMessage()
-            ], 201);
+            ]);
         }
 
     }
@@ -94,14 +94,15 @@ class UserController extends Controller
             return response()->json([
                 'status' => 'failed',
                 'message'=> 'Unauthorized'
-            ], 201);
+            ]);
         }
     }
 
     public function sendOtpEmail(Request $request)
     {
         $email  = $request->input('email');
-        $otp    = rand(1000, 9999);
+//        $otp    = rand(1000, 9999); //rand otp
+        $otp    = 1234;  // Defult otp
 
         $count = User::where('email', '=', $email)->count();
 
@@ -115,7 +116,7 @@ class UserController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message'=> '4 Digit OTP Code has been send to your email !'
+                'message'=> 'Your OTP Code is 1234'
             ], 200);
         }
         else
@@ -123,7 +124,7 @@ class UserController extends Controller
             return response()->json([
                 'status' => 'failed',
                 'message'=> 'Unauthorized'
-            ], 401);
+            ]);
         }
     }
 
@@ -154,7 +155,7 @@ class UserController extends Controller
             return response()->json([
                 'status' => 'failed',
                 'message'=> 'Unauthorized'
-            ], 401);
+            ]);
         }
     }
 

@@ -11,10 +11,41 @@
                         <label>Your email address</label>
                         <input id="email" placeholder="User Email" class="form-control" type="email"/>
                         <br/>
-                        <button   class="btn w-100 float-end bg-gradient-primary">Next</button>
+                        <button onclick="VerifyEmail()"  class="btn w-100 float-end bg-gradient-primary">Next</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+
+        async function VerifyEmail() {
+
+            let email = document.getElementById('email').value;
+
+            if (email.length === 0)
+            {
+                errorToast('Please Enter Your Email');
+            }else {
+                showLoader();
+                let res = await axios.post('/send-otp-email', {email:email});
+                hideLoader();
+
+                if(res.status === 200 && res.data.status === 'success'){
+                    successToast(res.data.message)
+                    sessionStorage.setItem('email', email);
+                    setTimeout(function () {
+                        window.location.href='/verifyOtp';
+                    }, 4000)
+
+                }else{
+                    errorToast(res.data.message);
+                }
+
+            }
+
+        }
+
+    </script>
 @endsection
