@@ -17,12 +17,16 @@ Route::post('/send-otp-email', [UserController::class, 'sendOtpEmail'])->name('s
 Route::post('/verify-otp', [UserController::class, 'verifyOtp'])->name('verify.otp');
 Route::post('/password-reset', [UserController::class, 'resetPassword'])->name('password.reset')->middleware([TokenVerificationMiddleware::class]);
 
+// user logout
+Route::get('/logout',[UserController::class,'userLogout'])->name('logout');
+
+
 // Page Routes
 Route::get('/login',[UserController::class,'LoginPage'])->name('login');
 Route::get('/registration',[UserController::class,'RegistrationPage'])->name('registration');
 Route::get('/sendOtp',[UserController::class,'SendOtpPage'])->name('send.otp');
-Route::get('/verifyOtp',[UserController::class,'VerifyOTPPage'])->name('verify');
-Route::get('/forgot-password',[UserController::class,'ResetPasswordPage'])->name('forgot.password');
+Route::get('/verifyOtp',[UserController::class,'VerifyOTPPage'])->name('verify')->middleware([TokenVerificationMiddleware::class]);
+Route::get('/forgot-password',[UserController::class,'ResetPasswordPage'])->name('forgot.password')->middleware([TokenVerificationMiddleware::class]);
 
 // Dashboard
-Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
+Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard')->middleware([TokenVerificationMiddleware::class]);

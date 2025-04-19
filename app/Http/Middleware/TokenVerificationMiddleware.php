@@ -22,14 +22,12 @@ class TokenVerificationMiddleware
 
         if($result == 'Unauthorized')
         {
-            return response()->json([
-                'status' => 'failed',
-                'message'=> 'Unauthorized'
-            ], 401);
+            return redirect('/login');
         }
         else
         {
-            $request->headers->set('email', $result);
+            $request->headers->set('email', $result->user_email);
+            $request->headers->set('email', $result->user_id);
             return $next($request);
         }
 
