@@ -16,6 +16,12 @@ class CategoryController extends Controller
         return view('backend.home.category-page');
     }
 
+    public function getData(Request $request)
+    {
+        $user_id = $request->header('id');
+        return Category::where('user_id', '=', $user_id)->get();
+    }
+
     public function create(Request $request)
     {
         try {

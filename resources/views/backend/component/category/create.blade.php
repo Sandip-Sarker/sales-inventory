@@ -43,6 +43,8 @@
             {
                 successToast('User Registration Successfully');
                 document.getElementById('save-form').reset();
+
+                await getList();
             }
             else
             {

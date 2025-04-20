@@ -35,6 +35,7 @@ Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard')
 Route::get('/userProfile',[DashboardController::class,'userProfile'])->name('user.profile')->middleware([TokenVerificationMiddleware::class]);
 
 // Category
-Route::get('/category-list',[CategoryController::class,'index'])->name('index')->middleware([TokenVerificationMiddleware::class]);
+Route::get('/category-index',[CategoryController::class,'index'])->name('index')->middleware([TokenVerificationMiddleware::class]);
 // ApI
+Route::get('/category-list',[CategoryController::class,'getData'])->name('list')->middleware([TokenVerificationMiddleware::class]);
 Route::post('/category-create',[CategoryController::class,'create'])->name('create')->middleware([TokenVerificationMiddleware::class]);

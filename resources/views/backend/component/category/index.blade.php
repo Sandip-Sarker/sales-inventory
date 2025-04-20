@@ -32,6 +32,38 @@
 
     <script>
 
+        getList();
+
+        async function getList() {
+
+            showLoader();
+            let res=await axios.get("/category-list");
+            hideLoader();
+
+            let tableList=$("#tableList");
+            let tableData=$("#tableData");
+
+            tableData.DataTable().destroy();
+            tableList.empty();
+
+            res.data.forEach(function (item,index) {
+                let row=`<tr>
+                    <td>${index+1}</td>
+                    <td>${item['name']}</td>
+                    <td>
+                        <button data-id="${item['id']}" class="btn editBtn btn-sm btn-outline-success">Edit</button>
+                        <button data-id="${item['id']}" class="btn deleteBtn btn-sm btn-outline-danger">Delete</button>
+                    </td>
+                 </tr>`
+                tableList.append(row)
+            })
+
+            new DataTable('#tableData',{
+                order:[[0,'asc']],
+                lengthMenu:[5,10,15,20,30]
+            });
+        }
+
 
     </script>
 
