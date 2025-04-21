@@ -58,10 +58,22 @@
                 tableList.append(row)
             })
 
+    
+
+            // Delete
+            $('.deleteBtn').on('click',function () {
+                let id = $(this).data('id');
+                $('#delete-modal').modal('show')
+                $("#deleteID").val(id);
+            })
+
             new DataTable('#tableData',{
                 order:[[0,'asc']],
                 lengthMenu:[5,10,15,20,30]
             });
+
+
+
         }
 
 
