@@ -39,4 +39,6 @@ Route::get('/category-index',[CategoryController::class,'index'])->name('index')
 // ApI
 Route::get('/category-list',[CategoryController::class,'getData'])->name('list')->middleware([TokenVerificationMiddleware::class]);
 Route::post('/category-create',[CategoryController::class,'create'])->name('create')->middleware([TokenVerificationMiddleware::class]);
+Route::post('/category-edit',[CategoryController::class,'edit'])->name('edit')->middleware([TokenVerificationMiddleware::class]);
+Route::post('/category-update',[CategoryController::class,'update'])->name('update')->middleware([TokenVerificationMiddleware::class]);
 Route::post('/category-delete',[CategoryController::class,'delete'])->name('delete')->middleware([TokenVerificationMiddleware::class]);

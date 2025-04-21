@@ -24,3 +24,41 @@
         </div>
     </div>
 </div>
+
+
+<script>
+
+    async function fillUpForm(id){
+        document.getElementById('updateID').value=id;
+        showLoader()
+        let res = await axios.post('/category-edit', {'id':id})
+        hideLoader()
+
+        document.getElementById('categoryNameUpdate').value=res.data['name'];
+    }
+
+
+    async function Update() {
+        let name    = document.getElementById('categoryNameUpdate').value;
+        let id      = document.getElementById('updateID').value;
+
+
+        if(name.length === 0)
+        {
+            errorToast('Category Name is Required')
+        }else {
+            document.getElementById('update-modal-close').click();
+            showLoader();
+            let res = await axios.post('/category-update', {id:id , name:name})
+            hideLoader();
+
+            if (res.data === 1 && res.status === 200)
+            {
+                successToast('Category Update Successfully')
+                await getList();
+            }else {
+                errorToast('Something is Wrong!')
+            }
+        }
+    }
+</script>

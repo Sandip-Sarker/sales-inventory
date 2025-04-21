@@ -7,6 +7,7 @@ use App\Models\backend\Category;
 use Exception;
 use Illuminate\Http\Request;
 use function response;
+use function sleep;
 use function view;
 
 class CategoryController extends Controller
@@ -42,6 +43,30 @@ class CategoryController extends Controller
             ]);
         }
 
+    }
+
+
+    public function edit(Request $request)
+    {
+
+        $category_id    = $request->input('id');
+        $user_id        = $request->header('id');
+
+        return Category::where('id',$category_id)
+            ->where('user_id', $user_id)
+            ->first();
+    }
+
+    public function update(Request $request)
+    {
+        $category_id    = $request->input('id');
+        $user_id        = $request->header('id');
+
+        return Category::where('id',$category_id)
+            ->where('user_id', $user_id)
+            ->update([
+                'name' => $request->input('name'),
+            ]);
     }
 
 
