@@ -55,12 +55,20 @@
                             <td>${item.mobile}</td>
                             <td>${item.address}</td>
                             <td>
-                                <button  class="btn editBtn btn-sm btn-outline-success">Edit</button>
-                                <button  class="btn deleteBtn btn-sm btn-outline-danger">Delete</button>
+                                <button data-id="${item.id}"  class="btn editBtn btn-sm btn-outline-success">Edit</button>
+                                <button data-id="${item.id}"  class="btn deleteBtn btn-sm btn-outline-danger">Delete</button>
                             </td>
                         </tr>`
             tableList.append(row);
         })
+
+        // Delete
+        $('.deleteBtn').on('click',function () {
+            let id = $(this).data('id');
+            $('#delete-modal').modal('show')
+            $("#deleteID").val(id);
+        })
+
 
         new DataTable('#tableData',{
             order:[[0,'asc']],
