@@ -68,7 +68,7 @@
             // Delete
             $('.deleteBtn').on('click',function () {
                 let id = $(this).data('id');
-                $('#update-modal').modal('show')
+                $('#delete-modal').modal('show')
                 $("#deleteID").val(id);
             })
 

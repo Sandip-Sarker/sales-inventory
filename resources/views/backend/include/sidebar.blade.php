@@ -5,12 +5,12 @@
         <span class="side-bar-item-caption">Dashboard</span>
     </a>
 
-    <a href="" class="side-bar-item">
+    <a href="{{route('customer.index')}}" class="side-bar-item">
         <i class="bi bi-people"></i>
         <span class="side-bar-item-caption">Customer</span>
     </a>
 
-    <a href="{{route('index')}}" class="side-bar-item">
+    <a href="{{route('category.index')}}" class="side-bar-item">
         <i class="bi bi-list-nested"></i>
         <span class="side-bar-item-caption">Category</span>
     </a>

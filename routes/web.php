@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\backend\DashboardController;
 use App\Http\Controllers\backend\CategoryController;
+use App\Http\Controllers\backend\CustomerController;
 
 
 Route::get('/', function () {
@@ -19,9 +20,6 @@ Route::post('/verify-otp', [UserController::class, 'verifyOtp'])->name('verify.o
 Route::post('/password-reset', [UserController::class, 'resetPassword'])->name('password.reset')->middleware([TokenVerificationMiddleware::class]);
 
 
-Route::get('/profile-details', [UserController::class, 'userProfileDataGet'])->name('user.profile.detail')->middleware([TokenVerificationMiddleware::class]);
-Route::post('/profile-update', [UserController::class, 'userProfileUpdate'])->name('user.profile.update')->middleware([TokenVerificationMiddleware::class]);
-
 // Page Routes
 Route::get('/login',[UserController::class,'LoginPage'])->name('login');
 Route::get('/registration',[UserController::class,'RegistrationPage'])->name('registration');
@@ -30,15 +28,32 @@ Route::get('/verifyOtp',[UserController::class,'VerifyOTPPage'])->name('verify')
 Route::get('/forgot-password',[UserController::class,'ResetPasswordPage'])->name('forgot.password')->middleware([TokenVerificationMiddleware::class]);
 Route::get('/logout',[UserController::class,'userLogout'])->name('logout');
 
-// Dashboard
-Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard')->middleware([TokenVerificationMiddleware::class]);
-Route::get('/userProfile',[DashboardController::class,'userProfile'])->name('user.profile')->middleware([TokenVerificationMiddleware::class]);
 
-// Category
-Route::get('/category-index',[CategoryController::class,'index'])->name('index')->middleware([TokenVerificationMiddleware::class]);
-// ApI
-Route::get('/category-list',[CategoryController::class,'getData'])->name('list')->middleware([TokenVerificationMiddleware::class]);
-Route::post('/category-create',[CategoryController::class,'create'])->name('create')->middleware([TokenVerificationMiddleware::class]);
-Route::post('/category-edit',[CategoryController::class,'edit'])->name('edit')->middleware([TokenVerificationMiddleware::class]);
-Route::post('/category-update',[CategoryController::class,'update'])->name('update')->middleware([TokenVerificationMiddleware::class]);
-Route::post('/category-delete',[CategoryController::class,'delete'])->name('delete')->middleware([TokenVerificationMiddleware::class]);
+
+Route::middleware([TokenVerificationMiddleware::class])->group(function () {
+    // Dashboard
+    Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
+    Route::get('/userProfile',[DashboardController::class,'userProfile'])->name('user.profile');
+
+    // Profile
+    Route::get('/profile-details', [UserController::class, 'userProfileDataGet'])->name('user.profile.detail');
+    Route::post('/profile-update', [UserController::class, 'userProfileUpdate'])->name('user.profile.update');
+
+    // Category
+    Route::get('/category-index', [CategoryController::class, 'index'])->name('category.index');
+    Route::get('/category-list', [CategoryController::class, 'getData'])->name('category.list');
+    Route::post('/category-create', [CategoryController::class, 'create'])->name('category.create');
+    Route::post('/category-edit', [CategoryController::class, 'edit'])->name('category.edit');
+    Route::post('/category-update', [CategoryController::class, 'update'])->name('category.update');
+    Route::post('/category-delete', [CategoryController::class, 'delete'])->name('category.delete');
+
+    // Customer
+    Route::get('/customer-index',[CustomerController::class,'index'])->name('customer.index');
+    Route::get('/customer-list',[CustomerController::class,'getData'])->name('customer.list');
+    Route::post('/customer-create',[CustomerController::class,'create'])->name('customer.create');
+    Route::post('/customer-edit',[CustomerController::class,'edit'])->name('customer.edit');
+    Route::post('/customer-update',[CustomerController::class,'update'])->name('customer.update');
+    Route::post('/customer-delete',[CustomerController::class,'delete'])->name('customer.delete');
+});
+
+
