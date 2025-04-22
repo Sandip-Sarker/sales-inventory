@@ -18,6 +18,7 @@
                         <th>Name</th>
                         <th>Email</th>
                         <th>Mobile</th>
+                        <th>Address</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -29,3 +30,41 @@
         </div>
     </div>
 </div>
+
+<script>
+
+    getList();
+
+    async function getList() {
+
+        showLoader();
+        let res = await axios.get('/customer-list');
+        hideLoader();
+
+        let tableList = $('#tableList')
+        let tableData = $('#tableData')
+
+        tableData.DataTable().destroy();
+        tableList.empty();
+
+        res.data.forEach(function (item, index) {
+            let row = `<tr>
+                            <td>${index+1}</td>
+                            <td>${item.name}</td>
+                            <td>${item.email}</td>
+                            <td>${item.mobile}</td>
+                            <td>${item.address}</td>
+                            <td>
+                                <button  class="btn editBtn btn-sm btn-outline-success">Edit</button>
+                                <button  class="btn deleteBtn btn-sm btn-outline-danger">Delete</button>
+                            </td>
+                        </tr>`
+            tableList.append(row);
+        })
+
+        new DataTable('#tableData',{
+            order:[[0,'asc']],
+            lengthMenu:[5,10,15,20,30]
+        });
+    }
+</script>

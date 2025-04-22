@@ -14,7 +14,7 @@
                                 <label class="form-label">Customer Email <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" id="email">
                                 <label class="form-label">Customer Mobile <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="mobile">
+                                <input type="number" class="form-control" id="mobile">
                                 <label class="form-label">Customer Address</label>
                                 <input type="text" class="form-control" id="address">
                             </div>
@@ -64,6 +64,8 @@
 
             if(res.data === 1){
                 successToast('Customer Create Successfully')
+                document.getElementById('save-form').reset();
+                await getList();
             }else {
                 errorToast('Something Went Wrong!');
             }
