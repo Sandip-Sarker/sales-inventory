@@ -2,11 +2,10 @@
 
 @section('content')
 
-    <h1>Customer</h1>
-{{--    @include('backend.component.category.index')--}}
-{{--    @include('backend.component.category.create')--}}
-{{--    @include('backend.component.category.edit')--}}
-{{--    @include('backend.component.category.delete')--}}
+    @include('backend.component.customer.index')
+    @include('backend.component.customer.create')
+    @include('backend.component.customer.edit')
+    @include('backend.component.customer.delete')
 
 
 @endsection
