@@ -48,6 +48,50 @@
         document.getElementById('emailUpdate').value    = res.data['email'];
         document.getElementById('mobileUpdate').value   = res.data['mobile'];
         document.getElementById('addressUpdate').value  = res.data['address'];
+    }
 
+    async function Update() {
+        let name        = document.getElementById('nameUpdate').value;
+        let email       = document.getElementById('emailUpdate').value;
+        let mobile      = document.getElementById('mobileUpdate').value;
+        let address     = document.getElementById('addressUpdate').value;
+        let id          = document.getElementById('updateID').value;
+
+
+        let mobileValidate = /^[0-9]{11}$/;
+        let emailValidate = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (name.length === 0) {
+            errorToast('Name is required');
+        } else if (email.length === 0) {
+            errorToast('Email is required');
+        } else if (!emailValidate.test(email)) {
+            errorToast('Email format is invalid');
+        } else if (mobile.length === 0) {
+            errorToast('Mobile is required');
+        } else if (!mobileValidate.test(mobile)) {
+            errorToast('Mobile number must be 11 digits only');
+        } else {
+
+            document.getElementById('update-modal-close').click();
+            showLoader();
+            let res = await axios.post('/customer-update',{
+                id:id,
+                name:name,
+                email:email,
+                mobile:mobile,
+                address:address
+            });
+            hideLoader();
+
+            if(res.data === 1){
+                successToast('Customer Update Successfully')
+                document.getElementById('update-form').reset();
+                await getList();
+            }else {
+                errorToast('Something Went Wrong!');
+            }
+
+        }
     }
 </script>

@@ -42,6 +42,21 @@ class CustomerController extends Controller
             ->first();
     }
 
+    public function update(Request $request)
+    {
+        $customer_id    = $request->input('id');
+        $user_id        = $request->header('id');
+
+        return Customer::where('id',$customer_id)
+            ->where('user_id', $user_id)
+            ->update([
+                'name'      => $request->input('name'),
+                'email'     => $request->input('email'),
+                'mobile'    => $request->input('mobile'),
+                'address'   => $request->input('address'),
+            ]);
+    }
+
 
     public function delete(Request $request)
     {
