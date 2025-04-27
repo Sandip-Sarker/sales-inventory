@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\backend\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -18,17 +19,31 @@ class ProductController extends Controller
 //        return Customer::where('user_id', '=', $user_id)->get();
 //    }
 
-//    public function create(Request $request)
-//    {
-//
-//        $data            = new Customer();
-//        $data->user_id   = $request->header('id');
-//        $data->name      = $request->input('name');
-//        $data->email     = $request->input('email');
-//        $data->mobile    = $request->input('mobile');
-//        $data->address   = $request->input('address');
-//        return $data->save();
-//    }
+    public function create(Request $request)
+    {
+        $user_id = $request->header('id');
+
+        // Prepare File Name & Path
+        $image          = $request->file('image');
+
+        $currentTime    = time();
+        $fileName       = $image->getClientOriginalName();
+        $imageName      = "{$user_id}-{$currentTime}-{$fileName}";
+        $imageUrl       = "uploads/product-image/{$imageName}";
+
+        // Upload File
+        $image->move(public_path('uploads/product-image'),$imageName);
+
+        $data               = new Product();
+        $data->user_id      = $user_id;
+        $data->name         = $request->input('name');
+        $data->price        = $request->input('price');
+        $data->unit         = $request->input('unit');
+        $data->description  = $request->input('description');
+        $data->category_id  = $request->input('category_id');
+        $data->image        = $imageUrl;
+        return $data->save();
+    }
 
 //    public function edit(Request $request)
 //    {
