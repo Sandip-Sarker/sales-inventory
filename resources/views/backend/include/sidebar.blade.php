@@ -15,7 +15,7 @@
         <span class="side-bar-item-caption">Category</span>
     </a>
 
-    <a href="" class="side-bar-item">
+    <a href="{{route('product.index')}}" class="side-bar-item">
         <i class="bi bi-bag"></i>
         <span class="side-bar-item-caption">Product</span>
     </a>
