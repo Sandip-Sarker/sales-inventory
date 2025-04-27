@@ -12,5 +12,5 @@ class ProductController extends Controller
         return view('backend.home.product-page');
     }
 
- 
+
 }

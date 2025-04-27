@@ -25,11 +25,11 @@
                                 <input type="text" class="form-control" id="productUnit">
 
                                 <br/>
-                                <img class="w-15" id="newImg" src="{{asset('images/default.jpg')}}"/>
+                                <img class="w-15" id="newImg" src="{{asset('images/default.jpg')}}">
                                 <br/>
 
                                 <label class="form-label">Image</label>
-                                <input oninput="newImg.src=window.URL.createObjectURL(this.files[0])" type="file" class="form-control" id="productImg">
+                                <input oninput="newImg.src=window.URL.createObjectURL(this.files[0])" type="file" class="form-control" id="producyImg">
 
                             </div>
                         </div>
