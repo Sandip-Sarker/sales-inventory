@@ -43,3 +43,22 @@
         </div>
     </div>
 </div>
+
+
+<script>
+
+    FillCategoryDropdown()
+
+    async function FillCategoryDropdown() {
+
+        let res = await axios.get('/category-list')
+
+        res.data.forEach(function (item, index) {
+
+            let option = ` <option value="${item.id}">${item.name}</option>`
+
+            $('#productCategory').append(option);
+        })
+
+    }
+</script>
