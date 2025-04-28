@@ -13,11 +13,11 @@ class ProductController extends Controller
         return view('backend.home.product-page');
     }
 
-//    public function getData(Request $request)
-//    {
-//        $user_id = $request->header('id');
-//        return Customer::where('user_id', '=', $user_id)->get();
-//    }
+    public function getData(Request $request)
+    {
+        $user_id = $request->header('id');
+        return Product::where('user_id', '=', $user_id)->get();
+    }
 
     public function create(Request $request)
     {
