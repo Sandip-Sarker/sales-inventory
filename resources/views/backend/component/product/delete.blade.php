@@ -20,8 +20,8 @@
 
 <script>
     async function itemDelete() {
-        let id = document.getElementById('deleteID').value;
-        let deleteFilePath = document.getElementById('deleteFilePath').value;
+        let id              = document.getElementById('deleteID').value;
+        let deleteFilePath  = document.getElementById('deleteFilePath').value;
 
         document.getElementById('delete-modal-close').click();
 

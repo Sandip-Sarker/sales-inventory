@@ -70,16 +70,17 @@
 
         // Edit
         $('.editBtn').on('click',async function () {
-            let id = $(this).data('id');
-            await fillUpForm(id)
+            let id      = $(this).data('id');
+            let path    = $(this).data('path');
+            await fillUpForm(id, path)
             $('#update-modal').modal('show')
 
         })
 
         // Delete
         $('.deleteBtn').on('click',function () {
-            let id = $(this).data('id');
-            let path = $(this).data('path');
+            let id      = $(this).data('id');
+            let path    = $(this).data('path');
             $('#delete-modal').modal('show')
             $("#deleteID").val(id);
             $("#deleteFilePath").val(path);

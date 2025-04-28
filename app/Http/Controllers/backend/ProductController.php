@@ -46,15 +46,15 @@ class ProductController extends Controller
         return $data->save();
     }
 
-//    public function edit(Request $request)
-//    {
-//        $customer_id    = $request->input('id');
-//        $user_id        = $request->header('id');
-//
-//        return Customer::where('id',$customer_id)
-//            ->where('user_id', $user_id)
-//            ->first();
-//    }
+    public function edit(Request $request)
+    {
+        $product_id    = $request->input('id');
+        $user_id       = $request->header('id');
+
+        return Product::where('id',$product_id)
+            ->where('user_id', $user_id)
+            ->first();
+    }
 //
 //    public function update(Request $request)
 //    {
