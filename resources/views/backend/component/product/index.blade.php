@@ -60,8 +60,8 @@
                             <td>${item.unit}</td>
                             <td>${item.description}</td>
                             <td>
-                                <button data-id="${item.id}"  class="btn editBtn btn-sm btn-outline-success">Edit</button>
-                                <button data-id="${item.id}"  class="btn deleteBtn btn-sm btn-outline-danger">Delete</button>
+                                <button data-path="${item.image}" data-id="${item.id}"  class="btn editBtn btn-sm btn-outline-success">Edit</button>
+                                <button data-path="${item.image}" data-id="${item.id}"  class="btn deleteBtn btn-sm btn-outline-danger">Delete</button>
                             </td>
                         </tr>`
             tableList.append(row);
@@ -79,8 +79,10 @@
         // Delete
         $('.deleteBtn').on('click',function () {
             let id = $(this).data('id');
+            let path = $(this).data('path');
             $('#delete-modal').modal('show')
             $("#deleteID").val(id);
+            $("#deleteFilePath").val(path);
         })
 
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\backend\Product;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -71,13 +72,15 @@ class ProductController extends Controller
 //    }
 //
 //
-//    public function delete(Request $request)
-//    {
-//        $customer_id    = $request->input('id');
-//        $user_id        = $request->header('id');
-//
-//        return Customer::where('id',$customer_id)
-//            ->where('user_id', $user_id)
-//            ->delete();
-//    }
+    public function delete(Request $request)
+    {
+        $user_id       = $request->header('id');
+        $product_id    = $request->input('id');
+        $file_path     = $request->input('file_path');
+        File::delete($file_path);
+
+        return Product::where('id',$product_id)
+            ->where('user_id', $user_id)
+            ->delete();
+    }
 }
