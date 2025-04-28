@@ -86,49 +86,56 @@
         document.getElementById('productCategoryUpdate').value      = res.data['category_id'];
     }
 
-    //
-    // async function Update() {
-    //     let name        = document.getElementById('nameUpdate').value;
-    //     let email       = document.getElementById('emailUpdate').value;
-    //     let mobile      = document.getElementById('mobileUpdate').value;
-    //     let address     = document.getElementById('addressUpdate').value;
-    //     let id          = document.getElementById('updateID').value;
-    //
-    //
-    //     let mobileValidate = /^[0-9]{11}$/;
-    //     let emailValidate = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    //
-    //     if (name.length === 0) {
-    //         errorToast('Name is required');
-    //     } else if (email.length === 0) {
-    //         errorToast('Email is required');
-    //     } else if (!emailValidate.test(email)) {
-    //         errorToast('Email format is invalid');
-    //     } else if (mobile.length === 0) {
-    //         errorToast('Mobile is required');
-    //     } else if (!mobileValidate.test(mobile)) {
-    //         errorToast('Mobile number must be 11 digits only');
-    //     } else {
-    //
-    //         document.getElementById('update-modal-close').click();
-    //         showLoader();
-    //         let res = await axios.post('/customer-update',{
-    //             id:id,
-    //             name:name,
-    //             email:email,
-    //             mobile:mobile,
-    //             address:address
-    //         });
-    //         hideLoader();
-    //
-    //         if(res.data === 1){
-    //             successToast('Customer Update Successfully')
-    //             document.getElementById('update-form').reset();
-    //             await getList();
-    //         }else {
-    //             errorToast('Something Went Wrong!');
-    //         }
-    //
-    //     }
-    // }
+    async function update() {
+
+        let productCategoryUpdate     = document.getElementById('productCategoryUpdate').value;
+        let productNameUpdate         = document.getElementById('productNameUpdate').value;
+        let productPriceUpdate        = document.getElementById('productPriceUpdate').value;
+        let productUnitUpdate         = document.getElementById('productUnitUpdate').value;
+        let productDescriptionUpdate  = document.getElementById('productDescriptionUpdate').value;
+        let productImgUpdate          = document.getElementById('productImgUpdate').files[0];
+        let updateID                  =document.getElementById('updateID').value;
+        let filePath                  =document.getElementById('filePath').value;
+
+        if (productCategoryUpdate.length === 0){
+            errorToast('Product Category Required !')
+        }else if (productNameUpdate.length === 0){
+            errorToast('Product Name Required !')
+        }else if (productPriceUpdate.length === 0){
+            errorToast('Product Price Required !')
+        }else if (productUnitUpdate.length === 0){
+            errorToast('Product Unit Required !')
+        }else {
+            document.getElementById('update-modal-close').click();
+
+            let fromData = new FormData();
+            fromData.append('id',updateID)
+            fromData.append('category_id', productCategoryUpdate)
+            fromData.append('image', productImgUpdate)
+            fromData.append('name', productNameUpdate)
+            fromData.append('price', productPriceUpdate)
+            fromData.append('unit', productUnitUpdate)
+            fromData.append('description', productDescriptionUpdate)
+            fromData.append('file_path',filePath)
+
+            const config = {
+                header: {
+                    'content-type': 'multipart/form-data'
+                }
+            }
+
+            showLoader()
+            let res = await axios.post('/product-update', fromData,config)
+            hideLoader()
+
+            if (res.data === 1){
+                successToast('Product Update Successfully');
+                document.getElementById('update-form').reset();
+                await getList();
+            }else{
+                errorToast('Something is Wrong !')
+            }
+        }
+
+    }
 </script>
