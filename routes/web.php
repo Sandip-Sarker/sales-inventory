@@ -7,6 +7,7 @@ use App\Http\Controllers\backend\DashboardController;
 use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\backend\CustomerController;
 use App\Http\Controllers\backend\ProductController;
+use App\Http\Controllers\backend\InvoiceController;
 
 
 Route::get('/', function () {
@@ -63,6 +64,15 @@ Route::middleware([TokenVerificationMiddleware::class])->group(function () {
     Route::post('/product-edit',[ProductController::class,'edit'])->name('product.edit');
     Route::post('/product-update',[ProductController::class,'update'])->name('product.update');
     Route::post('/product-delete',[ProductController::class,'delete'])->name('product.delete');
+
+    // Invoice
+    Route::get('/salePage',[InvoiceController::class,'SalePage'])->name('sale.create');
+    Route::post("/invoice-create",[InvoiceController::class,'invoiceCreate'])->name('invoice.create');
+    Route::get("/invoice-select",[InvoiceController::class,'invoiceSelect'])->name('invoice.select');
+    Route::post("/invoice-details",[InvoiceController::class,'InvoiceDetails'])->name('invoice.details');
+    Route::post("/invoice-delete",[InvoiceController::class,'invoiceDelete'])->name('invoice.delete');
+
+
 });
 
 

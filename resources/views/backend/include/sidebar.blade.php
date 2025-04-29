@@ -20,7 +20,7 @@
         <span class="side-bar-item-caption">Product</span>
     </a>
 
-    <a href="" class="side-bar-item">
+    <a href="{{route('sale.create')}}" class="side-bar-item">
         <i class="bi bi-currency-dollar"></i>
         <span class="side-bar-item-caption">Create Sale</span>
     </a>
