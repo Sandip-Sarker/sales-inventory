@@ -131,6 +131,7 @@
 
     <script>
 
+        //Function Calling
         (async ()=>{
             showLoader()
              await customerList();
@@ -191,14 +192,20 @@
                         <td><img class="w-10" src="${item.image}"/> ${item.name}</td>
                         <td>${item.price}</td>
                         <td>
-                            <a
-                            class="btn btn-outline-dark addCustomer  text-xxs px-2 py-1  btn-sm m-0">Add</a>
+                            <a data-id="${item.id}" data-name="${item.name}" data-price="${item.price}"
+                            class="btn btn-outline-dark addProduct  text-xxs px-2 py-1  btn-sm m-0">Add</a>
                         </td>
                     </tr>`
 
                 productList.append(row);
             })
 
+            $('.addProduct').on('click', async function () {
+                let id      = $(this).data('id');
+                let name    = $(this).data('name');
+                let price   = $(this).data('price');
+                addModal(id, name, price);
+            })
 
             new DataTable('#productTable',{
                 order:[[0,'desc']],
@@ -208,6 +215,14 @@
 
             });
         }
+
+        function addModal(id, name, price){
+            $('#PId').val(id);
+            $('#PName').val(name);
+            $('#PPrice').val(price);
+            $('#create-modal').modal('show')
+        }
+
     </script>
 @endsection
 
