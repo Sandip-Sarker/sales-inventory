@@ -3,6 +3,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
+            <!-- Billing  -->
             <div class="col-md-4 col-lg-4 p-2">
                 <div class="shadow-sm h-100 bg-white rounded-3 p-3">
                     <div class="row">
@@ -137,7 +138,7 @@
             hideLoader()
         })()
 
-
+        //Customer
         async function customerList() {
             let customerList    = $("#customerList");
             let customerTable   = $("#customerTable");
@@ -149,14 +150,27 @@
                 let row = `<tr class="text-xs">
                         <td><i class="bi bi-person"></i> ${item.name}</td>
                         <td>
-                            <a class="btn btn-outline-dark addCustomer  text-xxs px-2 py-1  btn-sm m-0">Add</a>
+                            <a data-name="${item.name}" data-email="${item.email}" data-id="${item.id}"
+                            class="btn btn-outline-dark addCustomer  text-xxs px-2 py-1  btn-sm m-0">Add</a>
                         </td>
                     </tr>`
 
                 customerList.append(row);
 
             })
-                new DataTable('#customerTable',{
+
+            // add customer to billing
+            $(".addCustomer").on('click',async function () {
+                let name = $(this).data('name');
+                let email = $(this).data('email');
+                let id = $(this).data('id');
+
+                $('#CName').text(name);
+                $('#CEmail').text(email);
+                $('#CId').text(id);
+            });
+
+            new DataTable('#customerTable',{
                     order:[[0,'desc']],
                     scrollCollapse: false, //// যখন কম সারি দেখানো হবে তখন টেবিলের উচ্চতা যেন কমে না যায়, সেটি নির্ধারণ করে
                     info: false, //Hide Showing 1 to 10 of 50 entries
@@ -164,6 +178,7 @@
                 });
         }
 
+        // Product
         async function productList() {
             let productList     = $("#productList");
             let productTable    = $("#productTable");
@@ -176,12 +191,14 @@
                         <td><img class="w-10" src="${item.image}"/> ${item.name}</td>
                         <td>${item.price}</td>
                         <td>
-                            <a class="btn btn-outline-dark addCustomer  text-xxs px-2 py-1  btn-sm m-0">Add</a>
+                            <a
+                            class="btn btn-outline-dark addCustomer  text-xxs px-2 py-1  btn-sm m-0">Add</a>
                         </td>
                     </tr>`
 
                 productList.append(row);
             })
+
 
             new DataTable('#productTable',{
                 order:[[0,'desc']],
