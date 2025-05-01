@@ -64,6 +64,7 @@
                         <thead class="w-100">
                         <tr class="text-xs text-bold">
                             <td>Product</td>
+                            <td>Price</td>
                             <td>Pick</td>
                         </tr>
                         </thead>
@@ -172,7 +173,8 @@
 
             res.data.forEach(function (item, index) {
                 let row = `<tr class="text-xs">
-                        <td><i class="bi bi-person"></i> ${item.name}</td>
+                        <td><img class="w-10" src="${item.image}"/> ${item.name}</td>
+                        <td>${item.price}</td>
                         <td>
                             <a class="btn btn-outline-dark addCustomer  text-xxs px-2 py-1  btn-sm m-0">Add</a>
                         </td>
