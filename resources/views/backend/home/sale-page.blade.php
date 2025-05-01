@@ -73,6 +73,7 @@
                 </div>
             </div>
 
+            <!-- Customer  -->
             <div class="col-md-4 col-lg-4 p-2">
                 <div class="shadow-sm h-100 bg-white rounded-3 p-3">
                     <table class="table table-sm w-100" id="customerTable">
@@ -91,8 +92,6 @@
 
         </div>
     </div>
-
-
 
 
     <div class="modal animated zoomIn" id="create-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -127,4 +126,41 @@
         </div>
     </div>
 
+    <script>
+
+        (async ()=>{
+            showLoader()
+             await customerList();
+            hideLoader()
+        })()
+
+
+        async function customerList() {
+            let customerList    = $("#customerList");
+            let customerTable   = $("#customerTable");
+            let res             = await axios.get('/customer-list');
+            customerTable.DataTable().destroy();
+            customerList.empty();
+
+            res.data.forEach(function (item,index) {
+                let row = `<tr class="text-xs">
+                        <td><i class="bi bi-person"></i> ${item.name}</td>
+                        <td>
+                            <a class="btn btn-outline-dark addCustomer  text-xxs px-2 py-1  btn-sm m-0">Add</a>
+                        </td>
+                    </tr>`
+
+                customerList.append(row);
+
+            })
+                new DataTable('#customerTable',{
+                    order:[[0,'desc']],
+                    scrollCollapse: false, //// যখন কম সারি দেখানো হবে তখন টেবিলের উচ্চতা যেন কমে না যায়, সেটি নির্ধারণ করে
+                    info: false, //Hide Showing 1 to 10 of 50 entries
+                    lengthChange: false //ব্যবহারকারী যেন প্রতি পাতায় কয়টা রো দেখবে (10, 25, 50 etc.) সেটি পরিবর্তন করতে না পারে। ড্রপডাউনটি হাইড থাকবে।
+                });
+        }
+    </script>
 @endsection
+
+
