@@ -57,6 +57,7 @@
                 </div>
             </div>
 
+            <!-- Product  -->
             <div class="col-md-4 col-lg-4 p-2">
                 <div class="shadow-sm h-100 bg-white rounded-3 p-3">
                     <table class="table  w-100" id="productTable">
@@ -131,6 +132,7 @@
         (async ()=>{
             showLoader()
              await customerList();
+             await productList();
             hideLoader()
         })()
 
@@ -159,6 +161,33 @@
                     info: false, //Hide Showing 1 to 10 of 50 entries
                     lengthChange: false //ব্যবহারকারী যেন প্রতি পাতায় কয়টা রো দেখবে (10, 25, 50 etc.) সেটি পরিবর্তন করতে না পারে। ড্রপডাউনটি হাইড থাকবে।
                 });
+        }
+
+        async function productList() {
+            let productList     = $("#productList");
+            let productTable    = $("#productTable");
+            let res             = await axios.get('/product-list');
+            productTable.DataTable().destroy();
+            productList.empty();
+
+            res.data.forEach(function (item, index) {
+                let row = `<tr class="text-xs">
+                        <td><i class="bi bi-person"></i> ${item.name}</td>
+                        <td>
+                            <a class="btn btn-outline-dark addCustomer  text-xxs px-2 py-1  btn-sm m-0">Add</a>
+                        </td>
+                    </tr>`
+
+                productList.append(row);
+            })
+
+            new DataTable('#productTable',{
+                order:[[0,'desc']],
+                scrollCollapse: false, //// যখন কম সারি দেখানো হবে তখন টেবিলের উচ্চতা যেন কমে না যায়, সেটি নির্ধারণ করে
+                info: false, //Hide Showing 1 to 10 of 50 entries
+                lengthChange: false //ব্যবহারকারী যেন প্রতি পাতায় কয়টা রো দেখবে (10, 25, 50 etc.) সেটি পরিবর্তন করতে না পারে। ড্রপডাউনটি হাইড থাকবে।
+
+            });
         }
     </script>
 @endsection
