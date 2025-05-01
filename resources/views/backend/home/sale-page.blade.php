@@ -139,7 +139,7 @@
             hideLoader()
         })()
 
-        //Customer
+        //Customer List
         async function customerList() {
             let customerList    = $("#customerList");
             let customerTable   = $("#customerTable");
@@ -179,7 +179,7 @@
                 });
         }
 
-        // Product
+        // Product List
         async function productList() {
             let productList     = $("#productList");
             let productTable    = $("#productTable");
@@ -216,6 +216,7 @@
             });
         }
 
+        // Modal product data add
         function addModal(id, name, price){
             $('#PId').val(id);
             $('#PName').val(name);
@@ -223,6 +224,52 @@
             $('#create-modal').modal('show')
         }
 
+        let invoiceItemList = [];
+
+        //Billing product data push
+        function add() {
+            let id      =  $('#PId').val();
+            let name    =  $('#PName').val();
+            let price   =  $('#PPrice').val();
+            let qty     =  $('#PQty').val();
+            let total   =  (parseFloat(price)*parseFloat(qty)).toFixed(2);
+
+            if(name.length === 0){
+                errorToast('Name is required')
+            }else if(price.length === 0) {
+                errorToast('Price is required')
+            }else if(qty.length === 0) {
+                errorToast('Quantity is required')
+            }else {
+                let item = {
+                    product_id:id,
+                    product_name:name,
+                    product_sale_price:price,
+                    product_qty:qty,
+                    product_total_price:total
+                }
+                invoiceItemList.push(item);
+                $('#create-modal').modal('hide')
+                ShowInvoiceItem();
+            }
+        }
+
+        //Billing data add
+        function ShowInvoiceItem() {
+            let invoiceList = $('#invoiceList');
+
+            invoiceList.empty();
+
+            invoiceItemList.forEach(function (item, index) {
+                let row = `<tr>
+                                <td>${item['product_name']}</td>
+                                <td>${item['product_qty']}</td>
+                                <td>${item['product_total_price']}</td>
+                                <td><a data-index="${index}" class="btn remove text-xxs px-2 py-1  btn-sm m-0">Remove</a></td>
+                           </tr>`
+                invoiceList.append(row);
+            })
+        }
     </script>
 @endsection
 
