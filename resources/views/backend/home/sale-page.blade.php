@@ -45,7 +45,7 @@
                             <p class="text-bold text-xs my-1 text-dark"> VAT(5%): <i class="bi bi-currency-dollar"></i>  <span id="vat"></span></p>
                             <p class="text-bold text-xs my-1 text-dark"> Discount: <i class="bi bi-currency-dollar"></i>  <span id="discount"></span></p>
                             <span class="text-xxs">Discount(%):</span>
-                            <input onkeydown="return false" value="0" min="0" type="number" step="0.25" onchange="DiscountChange()" class="form-control w-40 " id="discountP"/>
+                            <input onkeydown="return false" value="0" min="0" type="number" step="0.25" onchange="DiscountChange()" class="form-control w-40 " id="discountPercentage"/>
                             <p>
                                 <button onclick="createInvoice()" class="btn  my-3 bg-gradient-primary w-40">Confirm</button>
                             </p>
@@ -270,16 +270,56 @@
                 invoiceList.append(row);
             })
 
+            CalculateGrandTotal();
+
             $('.remove').on('click', async function () {
                 let index= $(this).data('index');
                 removeItem(index);
             })
         }
 
-
+        //Remove item
         function removeItem(index) {
             invoiceItemList.splice(index,1);
             ShowInvoiceItem()
+        }
+
+        // All total count
+        function CalculateGrandTotal() {
+            let Total               = 0;
+            let Vat                 = 0;
+            let Payable             = 0;
+            let Discount            = 0;
+            let discountPercentage  = (parseFloat(document.getElementById('discountPercentage').value));
+
+            invoiceItemList.forEach(function (item, index) {
+                Total = Total + parseFloat(item.product_total_price)
+                console.log(Total)
+            })
+
+            if (discountPercentage === 0){
+                Vat =  ((Total*5)/100).toFixed(2);
+
+                console.log(Vat)
+            }else{
+                Discount    = ((Total*discountPercentage)/100).toFixed(2);
+                Total       = (Total - ((Total*discountPercentage)/100)).toFixed(2);
+                Vat         = ((Total*5)/100).toFixed(2);
+                console.log(Vat)
+            }
+
+            Payable = (parseFloat(Total) + parseFloat(Vat)).toFixed(2);
+
+            $('#total').text(Total);
+            $('#payable').text(Payable);
+            $('#vat').text(Vat);
+            $('#discount').text(Discount);
+
+        }
+
+        //Discount change
+        function DiscountChange() {
+            CalculateGrandTotal();
         }
     </script>
 @endsection
