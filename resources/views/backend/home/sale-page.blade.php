@@ -269,6 +269,17 @@
                            </tr>`
                 invoiceList.append(row);
             })
+
+            $('.remove').on('click', async function () {
+                let index= $(this).data('index');
+                removeItem(index);
+            })
+        }
+
+
+        function removeItem(index) {
+            invoiceItemList.splice(index,1);
+            ShowInvoiceItem()
         }
     </script>
 @endsection
