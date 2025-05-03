@@ -321,6 +321,41 @@
         function DiscountChange() {
             CalculateGrandTotal();
         }
+
+        //Invoice Create
+        async function createInvoice() {
+            let total       = $('#total').text();
+            let payable     = $('#payable').text();
+            let vat         = $('#vat').text();
+            let discount    = $('#discount').text();
+            let customerId  = $('#CId').text();
+
+            let Data = {
+                "total":total,
+                "payable":payable,
+                "vat":vat,
+                "discount":discount,
+                "customer_id":customerId,
+                "products":invoiceItemList
+            }
+
+            if (customerId.length === 0){
+                errorToast("Customer Required !")
+            }else if(invoiceItemList.length === 0){
+                errorToast("Product Required !")
+            }else {
+                showLoader()
+                let res = await axios.post('/invoice-create', Data)
+                hideLoader()
+                if(res.data === 1){
+                    // window.location.href='/invoicePage'
+                    successToast("Invoice Created");
+                }
+                else{
+                    errorToast("Something Went Wrong")
+                }
+            }
+        }
     </script>
 @endsection
 
