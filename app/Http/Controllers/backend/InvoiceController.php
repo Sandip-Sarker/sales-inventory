@@ -61,10 +61,21 @@ class InvoiceController extends Controller
 
         }catch (Exception $e){
             DB::rollBack();
-            return 0
+            return 0;
         }
 
 
+    }
+
+    public function invoicePage()
+    {
+        return view('backend.home.invoice-page');
+    }
+
+    public function invoiceList(Request $request)
+    {
+        $user_id = $request->header('id');
+        return Invoice::where('user_id', $user_id)->with('customer')->get();
     }
 }
 
