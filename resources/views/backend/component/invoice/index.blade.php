@@ -69,13 +69,15 @@
 
         })
 
-        $('.viewBtn').on('click', function () {
-            $('#details-modal').modal('show')
+        $('.viewBtn').on('click', async function () {
+            let id= $(this).data('id');
+            let cus= $(this).data('cus');
+            await invoiceDetails(id,cus);
         })
 
         $('.deleteBtn').on('click', function () {
             let id = $(this).data('id')
-            let uid = $('#deleteID').val(id);
+            $('#deleteID').val(id);
             $('#delete-modal').modal('show')
         })
 

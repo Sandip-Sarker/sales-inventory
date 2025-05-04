@@ -58,3 +58,36 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    async function invoiceDetails(inv_id, cus_id) {
+        showLoader();
+        let res = await axios.post('/invoice-details',{inv_id:inv_id, cus_id:cus_id})
+        hideLoader();
+
+        $('#CName').text(res.data['customer']['name']);
+        $('#CId').text(res.data['customer']['user_id']);
+        $('#CEmail').text(res.data['customer']['email']);
+        $('#total').text(res.data['invoice']['total'])
+        $('#payable').text(res.data['invoice']['payable']);
+        $('#vat').text(res.data['invoice']['vat']);
+        $('#discount').text(res.data['invoice']['discount']);
+
+        let invoiceList=$('#invoiceList');
+
+        invoiceList.empty();
+
+        res.data['product'].forEach(function (item,index) {
+            let row=`<tr class="text-xs">
+                        <td>${item['product']['name']}</td>
+                        <td>${item['qty']}</td>
+                        <td>${item['sale_price']}</td>
+                     </tr>`
+            invoiceList.append(row)
+        });
+
+
+        $("#details-modal").modal('show')
+    }
+</script>

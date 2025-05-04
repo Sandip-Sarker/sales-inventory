@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\backend\Customer;
 use App\Models\Invoice;
 use App\Models\InvoiceProduct;
 use Exception;
@@ -91,6 +92,20 @@ class InvoiceController extends Controller
            DB::rollBack();
            return 0;
        }
+    }
+
+    public function InvoiceDetails(Request $request)
+    {
+        $user_id = $request->header('id');
+        $customerDetails = Customer::where('user_id', $user_id)->where('id', $request->input('cus_id'))->first();
+        $invoiceTotal = Invoice::where('user_id', $user_id)->where('id', $request->input('inv_id'))->first();
+        $invoiceProduct =  InvoiceProduct::where('user_id', $user_id)->where('invoice_id', $request->input('inv_id'))->with('product')->get();
+
+        return array(
+            'customer' => $customerDetails,
+            'invoice' => $invoiceTotal,
+            'product' => $invoiceProduct
+        );
     }
 }
 
