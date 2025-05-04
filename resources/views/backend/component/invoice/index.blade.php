@@ -69,6 +69,12 @@
 
         })
 
+        $('.deleteBtn').on('click', function () {
+            let id = $(this).data('id')
+            let uid = $('#deleteID').val(id);
+            $('#delete-modal').modal('show')
+        })
+
         new DataTable('#tableData',{
             order:[[0,'desc']],
             lengthMenu:[5,10,15,20,30]
