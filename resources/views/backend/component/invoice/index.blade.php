@@ -69,6 +69,10 @@
 
         })
 
+        $('.viewBtn').on('click', function () {
+            $('#details-modal').modal('show')
+        })
+
         $('.deleteBtn').on('click', function () {
             let id = $(this).data('id')
             let uid = $('#deleteID').val(id);
