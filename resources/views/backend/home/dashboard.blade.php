@@ -168,5 +168,22 @@
 @endsection
 
 @section('script')
+    <script>
+        getList();
+        async function getList() {
+            showLoader();
+            let res=await axios.get("/summary");
 
+            $('#product').text(res.data['product']);
+            $('#category').text(res.data['category']);
+            $('#customer').text(res.data['customer']);
+            $('#invoice').text(res.data['invoice']);
+            $('#total').text(res.data['total']);
+            $('#vat').text(res.data['vat']);
+            $('#payable').text(res.data['payable']);
+
+
+            hideLoader();
+        }
+    </script>
 @endsection

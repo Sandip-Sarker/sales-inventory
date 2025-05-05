@@ -36,6 +36,7 @@ Route::middleware([TokenVerificationMiddleware::class])->group(function () {
     // Dashboard
     Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
     Route::get('/userProfile',[DashboardController::class,'userProfile'])->name('user.profile');
+    Route::get('/summary',[DashboardController::class,'summary'])->name('summary');
 
     // Profile
     Route::get('/profile-details', [UserController::class, 'userProfileDataGet'])->name('user.profile.detail');
