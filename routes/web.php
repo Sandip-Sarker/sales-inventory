@@ -3,6 +3,7 @@
 use App\Http\Middleware\TokenVerificationMiddleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\fronend\HomeController;
 use App\Http\Controllers\backend\DashboardController;
 use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\backend\CustomerController;
@@ -11,9 +12,7 @@ use App\Http\Controllers\backend\InvoiceController;
 use App\Http\Controllers\ReportController;
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Web Api Routes
 Route::post('/user-registrations', [UserController::class, 'userRegistration'])->name('user.registration');
