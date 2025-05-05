@@ -61,6 +61,7 @@
 
 
 <script>
+
     async function invoiceDetails(inv_id, cus_id) {
         showLoader();
         let res = await axios.post('/invoice-details',{inv_id:inv_id, cus_id:cus_id})
@@ -90,4 +91,20 @@
 
         $("#details-modal").modal('show')
     }
+
+    function PrintPage() {
+        let printContents = $('#invoice').html(); // #invoice আইডি-র যেই HTML আছে, সেটা আমরা নিচ্ছি।
+        let originalContents = $('body').html(); // পুরো body-র HTML আমরা নিচ্ছি, যেন পরে তা আবার ফেরত দিতে পারি।
+
+        $('body').html(printContents); // এখন পুরো body-র মধ্যে শুধু invoice-এর HTML বসিয়ে দিচ্ছি, যাতে প্রিন্টে শুধু এটুকুই যায়।
+        window.print(); // ব্রাউজারের প্রিন্ট উইন্ডো খুলে দেয়।
+
+        $('body').html(originalContents); // প্রিন্ট হওয়ার পর আগের পুরো body-র HTML আবার ফিরিয়ে আনা হচ্ছে।
+
+        setTimeout(function() {
+            location.reload(); // ১ সেকেন্ড পরে পেজটি রিলোড করা হচ্ছে, যাতে সব জাভাস্ক্রিপ্ট/স্টাইল আবার ঠিকমতো কাজ করে।
+        }, 1000);
+    }
+
+
 </script>
