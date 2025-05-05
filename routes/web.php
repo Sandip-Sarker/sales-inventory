@@ -8,6 +8,7 @@ use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\backend\CustomerController;
 use App\Http\Controllers\backend\ProductController;
 use App\Http\Controllers\backend\InvoiceController;
+use App\Http\Controllers\ReportController;
 
 
 Route::get('/', function () {
@@ -74,7 +75,9 @@ Route::middleware([TokenVerificationMiddleware::class])->group(function () {
     Route::post("/invoice-details",[InvoiceController::class,'InvoiceDetails'])->name('invoice.details');
     Route::post("/invoice-delete",[InvoiceController::class,'invoiceDelete'])->name('invoice.delete');
 
-
+    // Report
+    Route::get('/report-page',[ReportController::class,'reportPage'])->name('report.page');
+    Route::get('/sales-report/{fromDate}/{toDate}',[ReportController::class,'salesReport'])->name('sales.report');
 });
 
 
