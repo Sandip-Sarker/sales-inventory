@@ -17,7 +17,7 @@
                     <li class="nav-item me-4"><a class="nav-link" href="#">Services</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Testimonials</a></li>
                 </ul>
-                <div><a class="btn mt-3 bg-gradient-primary" href="{{url('/userLogin')}}">Start Sale</a></div>
+                <div><a class="btn mt-3 bg-gradient-primary" href="{{route('login')}}">Start Sale</a></div>
             </div>
         </div>
     </nav>
@@ -29,8 +29,8 @@
                 <div class="col-12 col-md-10 col-lg-5 mb-5 mb-lg-0">
                     <h2 class=" fw-bold mb-3">Elevate Your Sales Game with Our Powerful POS Application! </h2>
                     <p class="lead text-muted mb-4">Discover streamlined transactions, real-time inventory management, and actionable insights in one intuitive POS app.</p>
-                    <div class="d-flex flex-wrap"><a class="btn bg-gradient-primary me-2 mb-2 mb-sm-0" href="{{url('/userLogin')}}">Start Sale</a>
-                        <a class="btn bg-gradient-primary mb-2 mb-sm-0" href="{{url('/userLogin')}}">Login</a></div>
+                    <div class="d-flex flex-wrap"><a class="btn bg-gradient-primary me-2 mb-2 mb-sm-0" href="{{route('login')}}">Start Sale</a>
+                        <a class="btn bg-gradient-primary mb-2 mb-sm-0" href="{{route('login')}}">Login</a></div>
                 </div>
                 <div class="col-12 col-lg-6 offset-lg-1">
                     <img class="img-fluid" src="{{asset('/images/hero.svg')}}" alt="">
@@ -138,7 +138,7 @@
         </div>
         <div class="mb-5"></div>
         <div class="container">
-            <p class="text-center">All rights reserved © Learn with Rabbil (LWR) 2023-2024</p>
+            <p class="text-center">All rights reserved © Sandip Sarker (SS) 2025</p>
         </div>
     </footer>
 
